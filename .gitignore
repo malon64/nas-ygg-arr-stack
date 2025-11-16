@@ -1,0 +1,10 @@
+.env
+*.ovpn
+ygege/config.json
+ygege/sessions/
+watchlistarr/config.yaml
+docker/
+plex/
+arr-data/
+.DS_Store
+Thumbs.db

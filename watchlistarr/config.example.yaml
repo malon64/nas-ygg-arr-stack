@@ -1,0 +1,21 @@
+## Sonarr Configuration
+sonarr:
+  baseUrl: "http://sonarr:8989"
+  apikey: "YOUR-SONARR-API-KEY"
+  qualityProfile: "HD-1080p"
+  rootFolder: "/arr-data/media/shows"
+  tags:
+    - watchlistarr
+
+## Radarr Configuration
+radarr:
+  baseUrl: "http://radarr:7878"
+  apikey: "YOUR-RADARR-API-KEY"
+  qualityProfile: "HD-1080p"
+  rootFolder: "/arr-data/media/movies"
+  tags:
+    - watchlistarr
+
+## Plex Configuration
+plex:
+  token: "YOUR-PLEX-TOKEN"

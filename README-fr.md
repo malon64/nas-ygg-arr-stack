@@ -1,4 +1,4 @@
-# Pile torrent pour NAS Synology
+# Torrent stack pour NAS Synology
 
 Stack Docker Compose pour NAS Synology :
 - Tunnel Gluetun (NordVPN) pour qBittorrent

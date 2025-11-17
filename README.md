@@ -9,7 +9,7 @@ Docker Compose stack for Synology NAS that:
 
 Context: Jackett+FlareSolverr against YGG caused frequent timeouts. YgéGé provides a faster, more stable API. The UPX-compressed YgéGé image crashed on an older Atom NAS, so a non-UPX build has been requested. The stack is wired for hardlinks (no duplicate copies) and keeps torrent traffic behind a VPN.
 
-Docs: [Architecture](docs/architecture.md) · [Paths](docs/paths.md) · [Setup (EN)](SETUP.md) · [Troubleshooting](docs/troubleshooting.md) · [README français](README-fr.md)
+Docs: [Architecture](docs/architecture.md) · [Paths](docs/paths.md) · [Setup](SETUP.md) · [Troubleshooting](docs/troubleshooting.md) · [README français](README-fr.md)
 
 Start:
 ```

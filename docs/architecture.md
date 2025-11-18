@@ -21,12 +21,13 @@
         |   |  |  |  |  |  |      |
         |  Jackett Flaresolverr   |
         |  Prowlarr Radarr Sonarr |
-        |  Watchlistarr YgéGé     |
+        |  Watchlistarr Recommendarr |
+        |  YgéGé                   |
         |                         |
         |  Plex (host network)    |  -> DLNA/clients on LAN
         ---------------------------
 ```
 
 - qBittorrent shares Gluetun network namespace; traffic goes through VPN.
-- Jackett/Flaresolverr/Prowlarr/Radarr/Sonarr/Watchlistarr/YgéGé sit on `media-net` and talk to each other via container hostnames.
+- Jackett/Flaresolverr/Prowlarr/Radarr/Sonarr/Watchlistarr/Recommendarr/YgéGé sit on `media-net` and talk to each other via container hostnames.
 - Plex uses host networking for discovery/remote access (forward TCP 32400 if needed).

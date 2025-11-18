@@ -4,7 +4,7 @@
 - Créez un utilisateur de service (ex. `arr-user`) dans DSM et notez son UID/GID; mettez-les dans `.env` (`PUID/PGID`).
 - Créez les dossiers :
   - `/volume1/arr-data` (sous-dossiers `torrents/incomplete`, `torrents/completed`, `media/movies`, `media/shows`)
-  - `/volume1/docker` pour les configs, avec sous-dossiers : `vpn`, `qbittorrent`, `jackett`, `flaresolverr`, `prowlarr`, `radarr`, `sonarr`, `plex`, `watchlistarr`, `ygege`
+  - `/volume1/docker` pour les configs, avec sous-dossiers : `vpn`, `qbittorrent`, `jackett`, `flaresolverr`, `prowlarr`, `radarr`, `sonarr`, `plex`, `watchlistarr`, `recommendarr`, `ygege`
 - Droits : `sudo chown -R <PUID>:<PGID> /volume1/arr-data /volume1/docker` (adaptez à votre UID/GID).
 
 ## 2) Copier les exemples
@@ -28,6 +28,7 @@ Plex est en mode host; ouvrez le port TCP 32400 sur votre routeur pour l’accè
 - FlareSolverr : `http://flaresolverr:8191`.
 - Prowlarr : ajoutez Jackett (`http://jackett:9117`) et YgéGé (`http://ygege:8715/` ou entrée `extra_hosts`); synchronisez vers Radarr/Sonarr.
 - Watchlistarr : endpoints `http://radarr:7878`, `http://sonarr:8989`, token Plex; utilisez les chemins `/arr-data` dans sa config.
+- Recommendarr : interface sur `http://recommendarr:${RECOMMENDARR_PORT:-3000}` (login par défaut `admin` / `1234`, à changer immédiatement) ; connectez Radarr/Sonarr/Plex au premier lancement ; définissez `RECOMMENDARR_PORT` dans `.env` si vous changez le port.
 - Plex : bibliothèques pointant vers `/data/movies` et `/data/shows` (mappés sur `/volume1/arr-data/media/...`).
   - Déployez Plex une première fois pour le claim/config (si besoin) : https://www.plex.tv/claim/
   - Récupérez ensuite le token Plex pour Watchlistarr après le claim : https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/

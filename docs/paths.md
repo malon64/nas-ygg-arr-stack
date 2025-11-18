@@ -7,6 +7,7 @@ Internal container paths expected by the stack (all mapped to `/volume1/arr-data
 - Sonarr library: `/arr-data/media/shows`
 - Plex libraries: `/data/movies` and `/data/shows` (mapped to the same `/arr-data/media/...` paths)
 - Watchlistarr: use the same `/arr-data/media/...` paths if specifying root folders
+- Recommendarr: persistent data at `/app/server/data`
 - YgéGé: config at `/app/config.json`, sessions at `/app/sessions`
 
 Keep downloads and libraries in the same filesystem (`/arr-data`) so Radarr/Sonarr can hardlink instead of copying.

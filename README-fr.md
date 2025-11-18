@@ -5,6 +5,7 @@ Stack Docker Compose pour NAS Synology :
 - Indexeurs YggTorrent : YgéGé (recommandé) et Jackett+FlareSolverr en complément
 - Automatisation Radarr/Sonarr orchestrée par Prowlarr
 - Ajout automatique depuis les watchlists Plex via Watchlistarr
+- Recommandations IA pour films/séries avec Recommendarr
 - Lecture avec Plex
 
 Contexte : l’accès YGG via Jackett+FlareSolverr provoquait des timeouts fréquents. YgéGé apporte une API plus rapide/stable. L’image YgéGé compressée avec UPX crashait sur un NAS Atom ancien -> un build sans UPX a été demandé. La stack est dimensionnée pour éviter les copies (hardlinks) et protéger le trafic torrent derrière un VPN.

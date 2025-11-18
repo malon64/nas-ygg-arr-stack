@@ -6,6 +6,8 @@ Chemins internes attendus (tous mappés sur `/volume1/arr-data` sur Synology) :
 - Médiathèque Radarr : `/arr-data/media/movies`
 - Médiathèque Sonarr : `/arr-data/media/shows`
 - Bibliothèques Plex : `/data/movies` et `/data/shows` (mappés sur `/arr-data/media/...`)
+- Recommendarr : données persistantes dans `/app/server/data`
+- YgéGé : config dans `/app/config.json`, sessions dans `/app/sessions`
 
 Gardez téléchargements et médiathèque sur le même filesystem (`/arr-data`) pour permettre les hardlinks.
 

@@ -158,6 +158,21 @@ services:
     restart: unless-stopped
     logging: *common-logging
 
+  recommendarr:
+    image: tannermiddleton/recommendarr:latest
+    container_name: recommendarr
+    environment:
+      <<: *common-env
+      PORT: "${RECOMMENDARR_PORT}"
+    volumes:
+      - ${DOCKERCONFDIR}/recommendarr:/app/server/data
+    ports:
+      - "${RECOMMENDARR_PORT}:${RECOMMENDARR_PORT}"
+    networks:
+      - media-net
+    restart: unless-stopped
+    logging: *common-logging
+
   ygege:
     image: uwucode/ygege:stable-noupx
     container_name: ygege

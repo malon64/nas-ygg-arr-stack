@@ -54,34 +54,6 @@ services:
     restart: unless-stopped
     logging: *common-logging
 
-  jackett:
-    image: lscr.io/linuxserver/jackett:latest
-    container_name: jackett
-    environment:
-      <<: *common-env
-    volumes:
-      - ${DOCKERCONFDIR}/jackett:/config
-    networks:
-      - media-net
-    ports:
-      - "${JACKETT_PORT}:${JACKETT_PORT}"
-    restart: unless-stopped
-    logging: *common-logging
-
-  flaresolverr:
-    image: flaresolverr/flaresolverr:latest
-    container_name: flaresolverr
-    networks:
-      - media-net
-    environment:
-      <<: *common-env
-      LOG_LEVEL: info
-    shm_size: "2gb"
-    ports:
-      - "${FLARESOLVERR_PORT}:${FLARESOLVERR_PORT}"
-    restart: unless-stopped
-    logging: *common-logging
-
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -185,6 +157,23 @@ services:
       - ${DOCKERCONFDIR}/ygege/sessions:/app/sessions
     ports:
       - "${YGEGE_PORT}:${YGEGE_PORT}"
+    networks:
+      - media-net
+    restart: unless-stopped
+    logging: *common-logging
+
+  ygege_alt:
+    image: uwucode/ygege:stable-noupx
+    container_name: ygege-alt
+    environment:
+      BIND_IP: "0.0.0.0"
+      BIND_PORT: "${YGEGE_ALT_PORT:-8716}"
+      LOG_LEVEL: "${YGEGE_LOG_LEVEL}"
+    volumes:
+      - ${DOCKERCONFDIR}/ygege-alt/config.json:/app/config.json
+      - ${DOCKERCONFDIR}/ygege-alt/sessions:/app/sessions
+    ports:
+      - "${YGEGE_ALT_PORT:-8716}:${YGEGE_ALT_PORT:-8716}"
     networks:
       - media-net
     restart: unless-stopped

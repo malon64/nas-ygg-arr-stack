@@ -1,7 +1,6 @@
 .env
 *.ovpn
-ygege/config.json
-ygege/sessions/
+ygege/
 watchlistarr/config.yaml
 docker/
 plex/

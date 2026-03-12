@@ -1,3 +1,4 @@
+
 networks:
   media-net:
     driver: bridge
@@ -14,46 +15,6 @@ x-logging: &common-logging
     max-file: "${DOCKERLOGGING_MAXFILE}"
 
 services:
-  vpn:
-    image: qmcgaw/gluetun:latest
-    container_name: vpn
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    environment:
-      <<: *common-env
-      VPN_SERVICE_PROVIDER: "nordvpn"
-      VPN_TYPE: "openvpn"
-      OPENVPN_USER: "${NORDVPN_USER}"
-      OPENVPN_PASSWORD: "${NORDVPN_PASSWORD}"
-      OPENVPN_CUSTOM_CONFIG: "${OPENVPN_CUSTOM_CONFIG:-}"
-      SERVER_COUNTRIES: "${SERVER_COUNTRIES:-France}"
-      FIREWALL_INPUT_PORTS: "${QBITTORRENT_WEBUI_PORT}"
-    volumes:
-      - ${DOCKERCONFDIR}/vpn:/config
-    ports:
-      - "${QBITTORRENT_WEBUI_PORT}:${QBITTORRENT_WEBUI_PORT}"
-    restart: unless-stopped
-    logging: *common-logging
-    networks:
-      - media-net
-
-  qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
-    container_name: qbittorrent
-    network_mode: "service:vpn"
-    depends_on:
-      - vpn
-    environment:
-      <<: *common-env
-      WEBUI_PORT: "${QBITTORRENT_WEBUI_PORT}"
-    volumes:
-      - ${DOCKERCONFDIR}/qbittorrent:/config
-      - ${ARR_DATA_DIR}:/arr-data
-    restart: unless-stopped
-    logging: *common-logging
-
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr

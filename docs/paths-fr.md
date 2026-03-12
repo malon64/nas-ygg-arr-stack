@@ -1,18 +1,37 @@
-# Conventions de chemins
+# Conventions de Paths
 
-Chemins internes attendus (tous mappés sur `/volume1/arr-data` sur Synology) :
+Docs liées : [Setup](../SETUP-fr.md) · [Troubleshooting](troubleshooting-fr.md) · [Architecture](architecture.md)
 
-- Téléchargements (qBittorrent) : `/arr-data/torrents` (utilisez `/arr-data/torrents/incomplete` et `/arr-data/torrents/completed`)
-- Médiathèque Radarr : `/arr-data/media/movies`
-- Médiathèque Sonarr : `/arr-data/media/shows`
-- Bibliothèques Plex : `/data/movies` et `/data/shows` (mappés sur `/arr-data/media/...`)
-- Recommendarr : données persistantes dans `/app/server/data`
-- YgéGé : config dans `/app/config.json`, sessions dans `/app/sessions`
+## Modèle de stockage canonique
+- le NAS exporte `/volume1/arr-data` en NFS
+- le Raspberry Pi monte cet export dans `/arr-data`
+- toutes les applications media doivent utiliser le même arbre logique afin que les imports utilisent des hardlinks au lieu de copies
 
-Gardez téléchargements et médiathèque sur le même filesystem (`/arr-data`) pour permettre les hardlinks.
+## Paths attendus
+- téléchargements qBittorrent :
+  - `/arr-data/torrents/incomplete`
+  - `/arr-data/torrents/completed`
+- bibliothèque Radarr :
+  - `/arr-data/media/movies`
+- bibliothèque Sonarr :
+  - `/arr-data/media/shows`
+- bibliothèques Plex dans le conteneur :
+  - `/data/movies`
+  - `/data/shows`
+- montages host Plex sur le Pi :
+  - `/arr-data/media/movies`
+  - `/arr-data/media/shows`
+- Watchlistarr :
+  - gardez les mêmes roots `/arr-data/media/...` si vous définissez des root folders
 
 ## Réglages courants
-- qBittorrent : chemins par défaut sous `/arr-data/torrents/...`; mettez à jour les torrents avec “Set Location” dans `/arr-data`.
-- Radarr/Sonarr : dossiers racine `/arr-data/media/movies` et `/arr-data/media/shows`; activez les hardlinks; client de téléchargement hôte `vpn`, port `8080`, chemins `/arr-data/torrents/...`.
-- Prowlarr : Jackett `http://jackett:9117`; YgéGé `http://ygege:8715/`.
-- Watchlistarr : endpoints `http://radarr:7878`, `http://sonarr:8989`; token Plex requis.
+- qBittorrent tourne sur le NAS et ne doit écrire que dans `/arr-data/torrents/...`.
+- Radarr et Sonarr tournent sur le Pi et ne doivent utiliser que `/arr-data/media/...` et `/arr-data/torrents/...`.
+- Radarr et Sonarr se connectent à qBittorrent via l'IP LAN ou le hostname du NAS, port `8080`.
+- Prowlarr tourne sur le Pi et doit utiliser uniquement des indexers natifs/directs. N'utilisez plus Jackett, FlareSolverr ou Ygege dans ce repo.
+- Watchlistarr parle à :
+  - `http://radarr:7878`
+  - `http://sonarr:8989`
+
+## Remote Path Mapping en dernier recours
+Si qBittorrent remonte un chemin spécifique à l'hôte que Radarr ou Sonarr ne savent pas résoudre, ajoutez un Remote Path Mapping. C'est un fallback, pas le design cible. Le design cible est un seul path racine canonique : `/arr-data`.

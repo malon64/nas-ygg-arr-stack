@@ -74,7 +74,7 @@ services:
     logging: *common-logging
 
   watchlistarr:
-    image: nylonee/watchlistarr:latest
+    image: nylonee/watchlistarr:latest # using watchlistarr:pr229 for now
     container_name: watchlistarr
     environment:
       SONARR_API_KEY: "${SONARR_API_KEY}"

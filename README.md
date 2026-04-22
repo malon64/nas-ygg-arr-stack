@@ -1,17 +1,17 @@
 # nas-ygg-arr-stack — Torrent media stack for Synology
 
-Docker Compose stack for Synology NAS that:
-- Tunnels qBittorrent through Gluetun (NordVPN)
-- Targets YggTorrent via YgéGé (preferred) and still ships Jackett+FlareSolverr
-- Automates Radarr/Sonarr with Prowlarr
-- Syncs Plex watchlists into Radarr/Sonarr with Watchlistarr
-- Serves media with Plex
+Two-node media stack for a Synology NAS and a Raspberry Pi:
+- NAS keeps `gluetun` + `qbittorrent`
+- Raspberry Pi runs `prowlarr`, `radarr`, `sonarr`, `watchlistarr`, and `plex`
+- NAS storage stays the single source of truth under `/volume1/arr-data`
+- Raspberry Pi mounts that storage over NFS at `/arr-data`
 
-Context: Jackett+FlareSolverr against YGG caused frequent timeouts. YgéGé provides a faster, more stable API. The UPX-compressed YgéGé image crashed on an older Atom NAS, so a non-UPX build has been requested. The stack is wired for hardlinks (no duplicate copies) and keeps torrent traffic behind a VPN.
+This repo used to target YGG through Jackett, FlareSolverr, and later Ygege. That path is no longer supported here. The current layout is simpler: keep torrent traffic isolated on the NAS behind the VPN, move the media apps to the Pi, and make every service read the same `/arr-data` tree so Radarr and Sonarr can hardlink instead of copying.
 
-Docs: [Architecture](docs/architecture.md) · [Paths](docs/paths.md) · [Setup](SETUP.md) · [Troubleshooting](docs/troubleshooting.md) · [README French](README-fr.md)
+Docs: [Paths](docs/paths.md) · [Setup](SETUP.md) · [Troubleshooting](docs/troubleshooting.md) · [Architecture](docs/architecture.md) · [README French](README-fr.md)
 
-Start:
-```
-docker-compose up -d
+Start the split stacks:
+```bash
+docker-compose -f nas/docker-compose.yml up -d
+docker-compose -f raspberrypi/docker-compose.yml up -d
 ```
